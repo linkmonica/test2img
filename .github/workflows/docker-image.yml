@@ -1,4 +1,4 @@
-name: Create Docker Image for base docker Anvil along with docker of OCHA from Jacques
+name: Create Docker Image using basilisk
 
 on:
   push:
