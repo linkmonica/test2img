@@ -55,20 +55,20 @@ RUN R -e 'install.packages("BiocManager")' \
     "IRkernel", \
     # GCP essentials
     "bigrquery",  \
-    "googleCloudStorageR", \
+    "googleCloudStorageR"))' \
+    && R -e 'BiocManager::install("DataBiosphere/Ronaldo")'
+    
+# Install Bioconductor packages found at:
+# https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/install.R
+RUN R -e 'BiocManager::install(c( \
+    "AnVIL", \
     "basilisk", \
     "HiCExperiment", \
     "HiCool", \
     "HiContacts", \
     "HiContactsData", \
     "fourDNData", \
-    "DNAZooData"))' \
-    && R -e 'BiocManager::install("DataBiosphere/Ronaldo")'
-    
-# Install Bioconductor packages found at:
-# https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/install.R
-RUN R -e 'BiocManager::install(c( \
-    "AnVIL"))'
+    "DNAZooData"))'
 ## pip runs as jupyter user
 ENV PIP_USER=true
 
