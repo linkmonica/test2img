@@ -1,0 +1,62 @@
+name: Create Docker Image for base docker Anvil along with docker of OCHA from Jacques
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env: 
+  registry: ghcr.io
+  user: linkmonica
+  repository: test2img
+
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+    name: Build & Push!
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: 🧾 Checkout repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: 📀 Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@v1.2.0
+
+      - name: 𝌚 Get current package version
+        id: version
+        run: |
+          version="0.0.1"
+
+      - name: 🔐 Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🏷 Get metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ghcr.io/linkmonica/test2img
+          tags: |
+            type=raw,value=latest,enable=true
+            type=raw,value=${{ steps.version.outputs.version }},enable=true
+
+      - name: 👷 Build and push multi-arch Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          platforms: linux/amd64
+          file: Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          outputs: type=image,annotation-index.org.opencontainers.image.description=test-edger
+          build-args: |
+            VERSION=${{ steps.version.outputs.version }}
