@@ -43,7 +43,6 @@ ENV PIP_USER=false
 RUN pip3 -V \
     && pip3 install --upgrade pip \
     && pip3 install cwltool \
-    && pip3 install --force-reinstall numpy==1.23 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
