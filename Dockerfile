@@ -20,7 +20,7 @@ RUN apt-get update \
     && apt update \
     && apt install -yq --no-install-recommends \
 	apt-utils \
- 	python3.9 \
+ 	python3.8 \
 	r-base-dev \
 	r-base-core \
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libgfortran.so /usr/lib/x86_64-linux-gnu/libgfortran.so \
