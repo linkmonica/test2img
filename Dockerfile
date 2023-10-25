@@ -13,7 +13,9 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
 
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
-RUN apt-get -y update
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
+    && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/' \
+    && apt-get install -yq --no-install-recommends apt-transport-https
 
 # DEVEL: Add sys env variables to DEVEL image
 # Variables in Renviron.site are made available inside of R.
