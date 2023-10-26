@@ -13,18 +13,7 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
 
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
-RUN && apt-get install -yq --no-install-recommends \
-add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/' \
-apt-utils \
- 	python3.7 \
-	libssh2-1-dev \
-	libssl-dev \
-	libcurl4-gnutls-dev \
-	libgit2-dev \
-	libxml2-dev \
-	libgfortran-7-dev \
-	r-base-dev \
-	r-base-core
+RUN apt-get update && apt-get install -yq --no-install-recommends
 
 
 
