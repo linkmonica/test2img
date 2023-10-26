@@ -13,7 +13,8 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
 
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
-RUN apt-get update && apt-get install -yq --no-install-recommends
+RUN gpg -a --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | sudo apt-key add -
+RUN sudo apt-get update && apt-get install -yq --no-install-recommends
 
 
 
