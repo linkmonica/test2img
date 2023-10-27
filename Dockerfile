@@ -114,3 +114,40 @@ RUN pip3 -V \
     && pip3 install cwltool \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+
+RUN R -e 'install.packages("BiocManager")' \
+    ## check version
+    && R -e 'BiocManager::install(version="3.17", ask=FALSE)' \
+    && R -e 'BiocManager::install(c( \
+    "boot", \
+    "class", \
+    "cluster", \
+    "codetools", \
+    "foreign", \
+    "kernsmooth", \
+    "lattice", \
+    "mass", \
+    "Matrix", \
+    "mgcv", \
+    "nlme", \
+    "nnet", \
+    "rpart", \
+    "Seurat", \
+    "spatial", \
+    "survival", \
+    # Jupyter notebook essentials
+    "IRdisplay",  \
+    "IRkernel", \
+    # GCP essentials
+    "bigrquery",  \
+    "googleCloudStorageR", \
+    # User oriented packages
+    "reticulate", \
+    "remotes", \
+    "devtools", \
+    "tidyverse", \
+    "pbdZMQ", \
+    "uuid"))' \
+    && R -e 'BiocManager::install("DataBiosphere/Ronaldo")'
+    
