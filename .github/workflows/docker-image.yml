@@ -9,7 +9,7 @@ on:
 env: 
   registry: ghcr.io
   user: linkmonica
-  repository: OCHA4AnVIL
+  repository: test2img
 
 jobs:
   build-push:
@@ -48,7 +48,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/linkmonica/OCHA4AnVIL
+          images: ghcr.io/linkmonica/test2img
           tags: |
             type=raw,value=latest,enable=true
             type=raw,value=${{ steps.version.outputs.version }},enable=true
