@@ -150,4 +150,30 @@ RUN R -e 'install.packages("BiocManager")' \
     "pbdZMQ", \
     "uuid"))' \
     && R -e 'BiocManager::install("DataBiosphere/Ronaldo")'
+
+
+RUN R -e 'BiocManager::install(c( \
+    "AnVIL", \
+    "HiCExperiment", \
+    "HiCool", \
+    "HiContacts", \
+    "HiContactsData", \
+    "fourDNData", \
+    "DNAZooData", \
+    "GenomicFeatures", \
+    "impute", \
+    "preprocessCore", \
+    "GO.db", \
+    "GenomicInteractions", \
+    "ensembldb"))'
     
+RUN R -e "install.packages('terra')"
+RUN R -e "install.packages('WGCNA')"
+RUN R -e "devtools::install_github('js2264/OHCA')"  
+## pip runs as jupyter user
+ENV PIP_USER=true
+
+RUN R -e 'IRkernel::installspec(user=FALSE)' \
+    && chown -R $USER:users /usr/local/lib/R/site-library /home/jupyter
+
+USER $USER
